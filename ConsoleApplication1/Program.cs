@@ -10,7 +10,9 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-
+            Console.WriteLine("marati");
+            Console.WriteLine("chinese movies");
+            Console.WriteLine("hello number");
             using (var ctx = new SchoolContext())
             {
                 var stud = new Student() { StudentName = "Bill" };
