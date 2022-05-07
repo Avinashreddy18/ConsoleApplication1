@@ -1,20 +1,15 @@
-pipeline {
-    agent any
-    stages {
-        stage('---clean---') {
-            steps {
-                sh "mvn clean"
-            }
-        }
-        stage('--test--') {
-            steps {
-                sh "mvn test"
-            }
-        }
-        stage('--package--') {
-            steps {
-                sh "mvn package"
-            }
-        }
+node {
+  stage('SCM') {
+    checkout scm
+  }
+  stage('SonarQube Analysis') {
+    def msbuildHome = tool 'Default MSBuild'
+    def scannerHome = tool 'SonarScanner for MSBuild'
+    withSonarQubeEnv() {
+      bat "\"${scannerHome}\\SonarScanner.MSBuild.exe\" begin /k:\"sonar_test\""
+      bat "\"${msbuildHome}\\MSBuild.exe\" /t:Rebuild"
+      bat "\"${scannerHome}\\SonarScanner.MSBuild.exe\" end"
     }
+  }
 }
+
