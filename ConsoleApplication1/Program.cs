@@ -10,7 +10,6 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("sisjjj");
             Console.WriteLine("hello number");
             using (var ctx = new SchoolContext())
             {
